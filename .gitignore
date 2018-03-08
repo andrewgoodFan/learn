@@ -1,0 +1,8 @@
+/node_modules
+gulpfile.js
+*.psd
+.idea/
+*.avi
+.project
+*.dump
+
