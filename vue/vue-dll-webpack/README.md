@@ -72,7 +72,8 @@ build文件夹下新建build-dll.js
           });
         });
 ### 修改webpack.prod.conf.js
-新增 
+#### 新增
+
         const bundleConfig = require("../libs/bundle-config.json") 
         const CleanWebpackPlugin = require('clean-webpack-plugin')
         plugins: [
@@ -90,7 +91,8 @@ build文件夹下新建build-dll.js
           }),
           ...
         ]
-HtmlWebpackPlugin中新增
+#### HtmlWebpackPlugin中新增
+
         new HtmlWebpackPlugin({
           ...
           libJsName: bundleConfig.libs.js,
