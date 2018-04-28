@@ -5,4 +5,5 @@ gulpfile.js
 *.avi
 .project
 *.dump
-
+/base/
+/test/
