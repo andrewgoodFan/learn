@@ -131,13 +131,13 @@ build文件夹下新建build-dll.js
 
  建议打包时将生成的文件路径改为相对路径
  config --index.js--build--assetsPublicPath:'./'
- 打包小问题记载
- 1.打包时静态资源路径错误
- 1.1 js/css路径错误： config -> index.js -> build -> assetsPublicPath: './', // 改为相对路径
- 1.2 图片路径错误： build -> utils.js -> vue-style-loader 添加 publicPath: '../../' 
- 1.3 兼容ie9:
-  安装 cnpm install --save-dev babel-polyfill;
-  在main.js 中 import 'babel-polyfill'
-  在build -> webpack.baseconfig.js -> entry: {app: ['babel-polyfill', './src/main.js']}
- 安装插件问题
+### 打包小问题记载
+<br>1.打包时静态资源路径错误
+<br>1.1 js/css路径错误： config -> index.js -> build -> assetsPublicPath: './', // 改为相对路径
+<br>1.2 图片路径错误： build -> utils.js -> vue-style-loader 添加 publicPath: '../../' 
+<br>1.3 兼容ie9:
+<br>安装 cnpm install --save-dev babel-polyfill;
+<br>在main.js 中 import 'babel-polyfill'
+<br>在build -> webpack.baseconfig.js -> entry: {app: ['babel-polyfill', './src/main.js']}
+### 安装插件问题
  1.在安装node-sass和sass-loader时，需要python: 使用cnpm安装
