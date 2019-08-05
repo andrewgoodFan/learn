@@ -7,3 +7,9 @@ gulpfile.js
 *.dump
 /base/
 /test/
+/dist/
+.history/
+/vue3/
+/demo/
+/jest/
+/node/
