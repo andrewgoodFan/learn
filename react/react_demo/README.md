@@ -1,68 +1,105 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## React 初探
 
-## Available Scripts
+### 启动项目
+1. 生成项目 
 
-In the project directory, you can run:
+```
+/**
+    脚手架生成项目
+ */
+npx create-react-app react_demo(your own project)
 
-### `npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+2. 初始配置
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+```
+/**
+    暴露配置文件(config)和运行文件(scripts)
+    npm run eject
+    tips: 首先需要将代码提交本地 (git add . -> git commit -m 'react项目初始化')
+*/
+```
+3. 配置项目目录
 
-### `npm test`
+```
+    src 
+        components       组件
+        views            页面
+        assets           静态资源
+        api              接口请求文件
+        utils            工具
+        store            react-redux
+        router           路由
+        config           自定义全局配置
+        index.js         入口文件
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 开始项目
 
-### `npm run build`
+#### 路由配置
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+引用的是react-router 4.x版本
+```
+tips: 网页端引入 react-router-dom, APP引入 react-router-native
+```
+使用了异步引入函数,和keep-alive组件 (keep-alive和asyncComponent貌似有些冲突, 我现在的做法是tab组件需要keep-alvie的同步引入,其他的组件异步引入)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+#### 使用jsx
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+jsx是js + xml, 是document.createElement 的语法糖,本质是书写js的虚拟dom
 
-### `npm run eject`
+#### 函数组件和类组件
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. 函数组件
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+看了官方文档和一些资料之后,我的理解是, 部分是用来做展示组件,只依赖prop来显示的无状态组件, 可用作复用组件
+tips: 看更新文档,大有代替类组件的意思, 增加了hook可以在函数组件中管理和使用state
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+2. 类组件
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+主要是具体的业务逻辑组件, 可继承, 难复用
 
-## Learn More
+#### request
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+网页端使用axios封装即可
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+配置跨域代理: 
+```
+// webpackDevServer.config.js
+...
+proxy: {
+    '/api': {
+        target: config.host[process.env.NODE_ENV],
+        changeOrigin: true,
+        pathRewrite: {'^/api': '/api'}
+    },
+},
+...
+```
 
-### Code Splitting
+#### 表单
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+1. 受控表单
 
-### Analyzing the Bundle Size
+受控组件的值由props或state传入，用户在元素上交互或输入内容会引起应用state的改变。在state改变之后重新渲染组件，我们才能在页面中看到元素中值的变化，假如组件没有绑定事件处理函数改变state，用户的输入是不会起到任何效果的
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+```
+<label htmlFor="">
+    用户名: <input onChange={ (e) => getUser(e)} value={username} type="text"/>
+</label>
+```
 
-### Making a Progressive Web App
+2. 非受控组件
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+使用ref和onChange接收输入框的值
 
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```
+ <label htmlFor="">
+    用户名: <input
+    defaultValue=''
+    placeholder="请输入用户名"
+    ref={(userInput) => setUserRef(userInput)}
+    onChange={getUser2} type="text"/>
+</label>
+```

@@ -1,0 +1,17 @@
+@import '@/style/variable.scss';
+.header-container {
+    position: relative;
+    a {
+        position: absolute;
+        left: .3rem;
+        top: 0;
+        color: #fff;
+        font-size: .5rem;
+        line-height: .8rem;
+    }
+    text-align: center;
+    line-height: .8rem;
+    font-size: .32rem;
+    color: #fff;
+    background: $primary-color;
+}
